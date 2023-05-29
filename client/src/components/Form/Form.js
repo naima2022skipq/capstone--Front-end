@@ -24,18 +24,20 @@ import { useSelector } from 'react-redux';
 
     if(currentId){
       dispatch(updatePost(currentId, postData));
+      
+     
      
     }  else{
       dispatch(createPost(postData));
       
     }
-    clear();
+    //clear();
     
     
   }
 
   const clear =()=>{
-    setCurrendId(null);
+    setCurrentId(0);
     setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
 
   }
