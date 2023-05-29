@@ -9,7 +9,7 @@ import { createPost ,updatePost} from '../../actions/posts.js';
 //import { updatePost } from '../../../../server/controllers/posts';
 import { useSelector } from 'react-redux';
 
- const  Form =({currentId, setCurrendId}) =>{
+ const  Form =({currentId, setCurrentId}) =>{
   const classes = useStyles();
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   const post = useSelector((state)=> currentId ? state.posts.find((p)=> p._id === currentId) :null);
