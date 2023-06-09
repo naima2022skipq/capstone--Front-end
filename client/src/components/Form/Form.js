@@ -9,38 +9,44 @@ import { createPost ,updatePost} from '../../actions/posts.js';
 //import { updatePost } from '../../../../server/controllers/posts';
 import { useSelector } from 'react-redux';
 
+
  const  Form =({currentId, setCurrentId}) =>{
   const classes = useStyles();
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-  const post = useSelector((state)=> currentId ? state.posts.find((p)=> p._id === currentId) :null);
+  const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
+  //const post = useSelector((state)=> currentId ? state.posts.find((p)=> p._id === currentId) :null);
   const dispatch = useDispatch();
 
   useEffect(()=> {
-   if(post)  setPostData(post);
+   if(post) setPostData(post);
   },[post]);
-
-  const handleSubmit =(e) =>{
-    e.preventDefault();
-
-    if(currentId){
-      dispatch(updatePost(currentId, postData));
-      
-     
-     
-    }  else{
-      dispatch(createPost(postData));
-      
-    }
-    //clear();
-    
-    
-  }
 
   const clear =()=>{
     setCurrentId(0);
     setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
 
   }
+
+  const handleSubmit =(e) =>{
+    e.preventDefault();
+
+    if(currentId){
+      dispatch(updatePost(currentId, postData));
+      clear();
+      
+      
+     
+     
+    }  else{
+      dispatch(createPost(postData));
+    clear();
+    }
+    //clear();
+    
+    
+  }
+
+  
   return (
     
     <Paper className={classes.paper}>
