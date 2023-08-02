@@ -1,44 +1,24 @@
-import React,{ useEffect, useState} from 'react';
-import {Container, AppBar, Typography, Grow, Grid} from '@mui/material';
-import digitalstory from './Images/digitalstory.png';
-import { useDispatch } from 'react-redux';
-import Posts from './components/Posts/Posts.js';
-import Form from './components/Form/Form.js';
-import useStyles from './styles.js';
-import { getPosts } from './actions/posts.js';
+import React  from 'react';
+import {Container} from '@material-ui/core';
+import Navbar from './components/NavBar/Navbar.js';
+import Home from './components/Home/Home.js';
+import Auth from './components/Auth/Auth.js';
+import { BrowserRouter , Route, Routes } from 'react-router-dom';
+
 
 const App =()=>{
-  const [currentId , setCurrentId ] = useState(0);
-
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
-  useEffect( ()=>{
-      dispatch(getPosts ());
-  }, [currentId,dispatch]);
+  
   
   return (
+    <BrowserRouter>
     <Container maxidth='lg' >
-      <AppBar className ={classes.appBar} position='static' color='inherit' >
-      <Typography  className ={classes.heading} variant='h2' align='center'>Digital Story</Typography>
-      <img  className ={classes.image} src={digitalstory} alt='digitalstory' height='60'/>
-
-      </AppBar>
-
-      <Grow in >
-        <Container>
-          <Grid container justify='space-between' alignItems='stretch'  spacing={3} > 
-             <Grid item xs={12} sm={7}>
-                 <Posts setCurrentId={setCurrentId}/>
-             </Grid>
-             <Grid item xs={12} sm={4}>
-         <Form currentId={currentId} setCurrentId={setCurrentId}/>
-        </Grid>
-          </Grid>
-        </Container>
-
-      </Grow>
+     <Navbar/>
+     <Routes>
+      <Route path='/' exact Component={Home}/>
+      <Route path='/auth' exact Component={Auth}/>
+     </Routes>
     </Container>
+    </BrowserRouter>
   )
 }
 export default App;
